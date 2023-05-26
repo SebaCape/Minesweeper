@@ -8,8 +8,8 @@ namespace Minesweeper
           public static void Main()
           {
             //variable declaration
-            int[,] board;
-            string input;
+            Cell[,] board;
+            string gameMode;
             int mineCount;
             int x;
             int y;
@@ -17,26 +17,26 @@ namespace Minesweeper
             //board size selection prompt & logic
             gameSelect:
             Console.WriteLine("1 for small board, 2 for medium board, 3 for large board");
-            input = Console.ReadLine();
+            gameMode = Console.ReadLine();
 
-            switch(input)
+            switch(gameMode)
             {
                case "1":
-               board = new int[8,8];
+               board = new Cell[8,8];
                x = 8;
                y = 8;
                mineCount = 13;
                break;
 
                case "2":
-               board = new int[12,12];
+               board = new Cell[12,12];
                x = 12;
                y = 12;
                mineCount = 29;
                break;
 
                case "3":
-               board = new int[20,20];
+               board = new Cell[20,20];
                x = 20;
                y = 20;
                mineCount = 80;
@@ -46,19 +46,52 @@ namespace Minesweeper
                goto gameSelect;
             }
 
+            //board generation
             for(int i = 0; i < x; i++)
             {
-             Random r = new Random();
-             int n = r.Next(0,x);
-             board[i,n] = -1;
-
              for(int j = 0; j < y; j++)
              {
-               Console.Write(board[i,j]);
+              board[i,j] = new Cell();
+              //Console.WriteLine(board[i,j].PrintData());
              }
-
-             Console.WriteLine();
             } 
+
+            //mine placement
+            Random rx = new Random();
+            int nx;
+            Random ry = new Random();
+            int ny;
+            int currentMines = 0;
+
+            while(currentMines < mineCount)
+            {
+             nx = rx.Next(0,x);
+             ny = ry.Next(0,y);
+             if(board[ny,nx].isMine != true)
+             {
+             board[ny,nx].isMine = true;
+             currentMines++;
+             }
+            }
+
+            //adjacent mine counter
+            for(int i = 0; i < y; i++)
+            {
+              for(int j = 0; j < x; j++)
+              {
+                
+              }
+            }
+
+            /* code for printing out each mines' attributes
+            for(int i = 0; i < x; i++)
+            {
+             for(int j = 0; j < y; j++)
+             {
+              Console.WriteLine(board[i,j].PrintData());
+             }
+            }*/
+
           }
      }
 }
