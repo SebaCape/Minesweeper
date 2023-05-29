@@ -73,17 +73,26 @@ namespace Minesweeper
              currentMines++;
              }
             }
-
-            //adjacent mine counter
-            for(int i = 0; i < y; i++)
+            
+            //adjacent mine counter for individual cell
+            void howManyAdj(int xx, int yy)
             {
-              for(int j = 0; j < x; j++)
-              {
-                
-              }
+                for (int i = y - 1; i <= y + 1; i++)
+                {
+                  for (int j = x - 1; j <= x + 1; j++)
+                  {
+                    if (i >= 0 && i < y && j >= 0 && j < x)
+                      {
+                      if (board[i,j].isMine)
+                        {
+                          board[xx,yy].adjMines ++;
+                        }
+                      }
+                  }
+                }
             }
 
-            /* code for printing out each mines' attributes
+             /* code for printing out each mines' attributes
             for(int i = 0; i < x; i++)
             {
              for(int j = 0; j < y; j++)
