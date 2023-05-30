@@ -9,6 +9,7 @@ namespace Minesweeper
           {
             //variable declaration
             Cell[,] board;
+            string [,] sBoard;
             string gameMode;
             int mineCount;
             int x;
@@ -23,6 +24,7 @@ namespace Minesweeper
             {
                case "1":
                board = new Cell[8,8];
+               sBoard = new string[8,8];
                x = 8;
                y = 8;
                mineCount = 13;
@@ -30,6 +32,7 @@ namespace Minesweeper
 
                case "2":
                board = new Cell[12,12];
+               sBoard = new string[12,12];
                x = 12;
                y = 12;
                mineCount = 29;
@@ -37,6 +40,7 @@ namespace Minesweeper
 
                case "3":
                board = new Cell[20,20];
+               sBoard = new string[20,20];
                x = 20;
                y = 20;
                mineCount = 80;
@@ -47,15 +51,16 @@ namespace Minesweeper
             }
 
             //board generation
+            public void bGenerate()
+            {
             for(int i = 0; i < x; i++)
             {
              for(int j = 0; j < y; j++)
              {
               board[i,j] = new Cell();
-              //Console.WriteLine(board[i,j].PrintData());
              }
             } 
-
+            }
             //mine placement
             Random rx = new Random();
             int nx;
