@@ -5,23 +5,29 @@ namespace Minesweeper
 {
      public class gameBoard
      { 
-          public static void Main()
-          {
+      
             //variable declaration
             Cell[,] board;
             string [,] sBoard;
             string gameMode;
             int mineCount;
-            int x;
-            int y;
+            public int x;
+            public int y;
+            
+            Random rx = new Random();
+            int nx;
+            Random ry = new Random();
+            int ny;
+            int currentMines = 0;
 
-            //board size selection prompt & logic
-            gameSelect:
-            Console.WriteLine("1 for small board, 2 for medium board, 3 for large board");
-            gameMode = Console.ReadLine();
-
-            switch(gameMode)
+            public void gameModeSelect()
             {
+             gameSelect:
+             Console.WriteLine("1 for small board, 2 for medium board, 3 for large board");
+             gameMode = Console.ReadLine();
+
+             switch(gameMode)
+             {
                case "1":
                board = new Cell[8,8];
                sBoard = new string[8,8];
@@ -48,26 +54,24 @@ namespace Minesweeper
 
                default:
                goto gameSelect;
+             }
             }
 
             //board generation
-            public void bGenerate()
+           public void bGenerate()
             {
-            for(int i = 0; i < x; i++)
-            {
-             for(int j = 0; j < y; j++)
+             for(int i = 0; i < x; i++)
              {
-              board[i,j] = new Cell();
-             }
-            } 
+              for(int j = 0; j < y; j++)
+              {
+               board[i,j] = new Cell();
+              }
+             } 
             }
-            //mine placement
-            Random rx = new Random();
-            int nx;
-            Random ry = new Random();
-            int ny;
-            int currentMines = 0;
 
+            //mine placement
+           public void placeMines()
+           {
             while(currentMines < mineCount)
             {
              nx = rx.Next(0,x);
@@ -75,37 +79,47 @@ namespace Minesweeper
              if(board[ny,nx].isMine != true)
              {
              board[ny,nx].isMine = true;
+             board[ny,nx].adjMines = -1;
              currentMines++;
              }
             }
+           }
             
             //adjacent mine counter for individual cell
-            void howManyAdj(int xx, int yy)
+            public void howManyAdj(int xx, int yy)
             {
+              if(board[xx,yy].isMine != true)
+               {
                 for (int i = y - 1; i <= y + 1; i++)
                 {
                   for (int j = x - 1; j <= x + 1; j++)
                   {
                     if (i >= 0 && i < y && j >= 0 && j < x)
-                      {
-                      if (board[i,j].isMine)
+                     {
+                      if (board[i,j].isMine == true)
                         {
-                          board[xx,yy].adjMines ++;
+                          board[xx,yy].adjMines += 1;
                         }
-                      }
+                     }
                   }
                 }
+               }
             }
 
-             /* code for printing out each mines' attributes
-            for(int i = 0; i < x; i++)
+            public void attPrint()
             {
-             for(int j = 0; j < y; j++)
+             for(int i = 0; i < x; i++)
              {
-              Console.WriteLine(board[i,j].PrintData());
+              for(int j = 0; j < y; j++)
+              {
+               Console.WriteLine(board[i,j].PrintData());
+              }
              }
-            }*/
+            }
 
-          }
+            public void boardPrint()
+            {
+
+            }
      }
 }
