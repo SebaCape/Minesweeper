@@ -19,6 +19,7 @@ namespace Minesweeper
        isActive = iA;
        adjMines = aM;
       }
+      
       //default Cell constructor
       public Cell()
       {

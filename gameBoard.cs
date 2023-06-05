@@ -88,17 +88,17 @@ namespace Minesweeper
             //adjacent mine counter for individual cell
             public void howManyAdj(int xx, int yy)
             {
-              if(board[xx,yy].isMine != true)
+              if(board[xx,yy].adjMines != -1)
                {
-                for (int i = y - 1; i <= y + 1; i++)
+                for (int i = yy - 1; i <= yy + 1; i++)
                 {
-                  for (int j = x - 1; j <= x + 1; j++)
+                  for (int j = xx - 1; j <= xx + 1; j++)
                   {
                     if (i >= 0 && i < y && j >= 0 && j < x)
                      {
-                      if (board[i,j].isMine == true)
+                      if (board[i,j].adjMines == -1)
                         {
-                          board[xx,yy].adjMines += 1;
+                          board[xx,yy].adjMines++;
                         }
                      }
                   }
@@ -106,20 +106,46 @@ namespace Minesweeper
                }
             }
 
+            //shows each cells individual attributes
             public void attPrint()
             {
              for(int i = 0; i < x; i++)
              {
               for(int j = 0; j < y; j++)
               {
-               Console.WriteLine(board[i,j].PrintData());
+               Console.Write(board[i,j].PrintData);
               }
              }
             }
 
+            //updates string board to be accurate to cells current attributes
+            public void sBoardUpdate()
+            {
+             for(int i = 0; i < x; i++)
+              {
+               for(int j = 0; j < y; j++)
+               {
+                if(board[i,j].isActive == false)
+                sBoard[i,j] = "I";
+                else if(board[i,j].isFlagged == true)
+                sBoard[i,j] = "F";
+                else if(board[i,j].isActive == true)
+                sBoard[i,j] = "" + board[i,j].adjMines;
+               }
+              }
+            }
+
+            //prints board of cells in way that shows whether they are active or not
             public void boardPrint()
             {
-
+             for(int i = 0; i < x; i++)
+              {
+               for(int j = 0; j < y; j++)
+                {
+                 Console.Write(sBoard[i,j]);
+                } 
+                Console.WriteLine();
+              }
             }
      }
 }
