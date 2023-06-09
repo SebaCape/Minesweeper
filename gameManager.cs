@@ -13,18 +13,19 @@ namespace Minesweeper
            g.gameModeSelect();
            g.bGenerate();
            g.placeMines();
-           g.sBoardUpdate();
            
            //loop to set adjacent mine count for each cell individually
            for(int i = 0; i < g.x; i++)
            {
-            for(int j = 0; i < g.y; i++)
+            for(int j = 0; j < g.y; j++)
             {
              g.howManyAdj(i,j);
             }
            }
 
-           g.attPrint();
+           //g.attPrint();
+           g.sBoardUpdate();
+           g.boardPrint();
           }
      }
 }

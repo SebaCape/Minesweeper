@@ -33,7 +33,7 @@ namespace Minesweeper
                sBoard = new string[8,8];
                x = 8;
                y = 8;
-               mineCount = 13;
+               mineCount = 8;
                break;
 
                case "2":
@@ -41,7 +41,7 @@ namespace Minesweeper
                sBoard = new string[12,12];
                x = 12;
                y = 12;
-               mineCount = 29;
+               mineCount = 18;
                break;
 
                case "3":
@@ -49,7 +49,7 @@ namespace Minesweeper
                sBoard = new string[20,20];
                x = 20;
                y = 20;
-               mineCount = 80;
+               mineCount = 50;
                break;
 
                default:
@@ -76,7 +76,7 @@ namespace Minesweeper
             {
              nx = rx.Next(0,x);
              ny = ry.Next(0,y);
-             if(board[ny,nx].isMine != true)
+             if(!board[ny,nx].isMine)
              {
              board[ny,nx].isMine = true;
              board[ny,nx].adjMines = -1;
@@ -88,22 +88,22 @@ namespace Minesweeper
             //adjacent mine counter for individual cell
             public void howManyAdj(int xx, int yy)
             {
-              if(board[xx,yy].adjMines != -1)
+             if (!board[xx, yy].isMine)
+             {
+              for (int i = yy - 1; i <= yy + 1; i++)
+              {
+               for (int j = xx - 1; j <= xx + 1; j++)
                {
-                for (int i = yy - 1; i <= yy + 1; i++)
+                if (i >= 0 && i < y && j >= 0 && j < x)
                 {
-                  for (int j = xx - 1; j <= xx + 1; j++)
-                  {
-                    if (i >= 0 && i < y && j >= 0 && j < x)
-                     {
-                      if (board[i,j].adjMines == -1)
-                        {
-                          board[xx,yy].adjMines++;
-                        }
-                     }
-                  }
+                 if (board[j, i].isMine)
+                 {
+                  board[xx, yy].adjMines++;
+                 }
                 }
                }
+              }
+              }
             }
 
             //shows each cells individual attributes
@@ -113,7 +113,7 @@ namespace Minesweeper
              {
               for(int j = 0; j < y; j++)
               {
-               Console.Write(board[i,j].PrintData);
+               Console.Write(board[i,j].PrintData());
               }
              }
             }
@@ -125,12 +125,12 @@ namespace Minesweeper
               {
                for(int j = 0; j < y; j++)
                {
-                if(board[i,j].isActive == false)
+                /*if(board[i,j].isActive == false)
                 sBoard[i,j] = "I";
                 else if(board[i,j].isFlagged == true)
                 sBoard[i,j] = "F";
-                else if(board[i,j].isActive == true)
-                sBoard[i,j] = "" + board[i,j].adjMines;
+                else if(board[i,j].isActive == true)*/
+                sBoard[i,j] = board[i,j].adjMines.ToString();
                }
               }
             }
