@@ -125,7 +125,7 @@ namespace Minesweeper
               {
                for(int j = 0; j < y; j++)
                {
-                /*if(board[i,j].isActive == false)
+                if(board[i,j].isActive == false)
                 sBoard[i,j] = "I";
                 else if(board[i,j].isFlagged == true)
                 sBoard[i,j] = "F";
