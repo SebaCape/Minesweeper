@@ -7,7 +7,7 @@ namespace Minesweeper
      { 
       
             //variable declaration
-            Cell[,] board;
+            public Cell[,] board;
             string [,] sBoard;
             string gameMode;
             int mineCount;
@@ -129,7 +129,7 @@ namespace Minesweeper
                 sBoard[i,j] = "I";
                 else if(board[i,j].isFlagged == true)
                 sBoard[i,j] = "F";
-                else if(board[i,j].isActive == true)*/
+                else if(board[i,j].isActive == true)
                 sBoard[i,j] = board[i,j].adjMines.ToString();
                }
               }
