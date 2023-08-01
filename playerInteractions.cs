@@ -10,10 +10,13 @@ namespace Minesweeper
       //determines which cell of the board will be activated
       public void cellActivate(int x, int y, gameBoard g)
       {
-       if(g.board[x,y].isActive != true)
+       if(g.board[x,y].isActive != true && g.board[x,y].isFlagged != true)
+       {
        g.board[x,y].isActive = true;
+       cellCheck(x,y,g);
+       }
        else
-       Console.WriteLine("cell already active");
+       Console.WriteLine("cell already active or flagged");
       }
 
      //checks whether specific cell is a mine or is flagged, if not, it will display the cells adjacent mines variable
@@ -26,7 +29,7 @@ namespace Minesweeper
       //determines which cell of the board will be flagged
       public void cellFlag(int x, int y, gameBoard g)
       {
-       if(g.board[x,y].isFlagged != true)
+       if(g.board[x,y].isFlagged != true && g.board[x,y].isActive != true)
        g.board[x,y].isFlagged = true;
        else
        g.board[x,y].isFlagged = false;
@@ -35,9 +38,9 @@ namespace Minesweeper
       //determines what will be done with that board cell
       public void actionSelect(string input, int x, int y, gameBoard g)
       {
-       Console.WriteLine("Choose the x coordinate");
+       Console.WriteLine("Choose the x coordinate (0-7)");
        x = Convert.ToInt32(Console.ReadLine());
-       Console.WriteLine("Choose the y coordinate");
+       Console.WriteLine("Choose the y coordinate (0-7)");
        y = Convert.ToInt32(Console.ReadLine());
 
        Console.WriteLine("Choose which action you would like to perform. Flag: F, Activate: A");
@@ -59,21 +62,9 @@ namespace Minesweeper
       }
 
       //determines whether the game is over or not, additionally determines if player has won or lost 
-      public void gameStateCheck()
+      public int gameStateCheck()
       {
-       switch(gameOver)
-       {
-        case 1:
-        Console.WriteLine("Game Over, you lose");
-        break;
-
-        case 2:
-        Console.WriteLine("Game Over, you win");
-        break;
-
-        default:
-        break;
-       }
+        return gameOver;
       }
      }
 }

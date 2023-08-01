@@ -7,9 +7,12 @@ namespace Minesweeper
      { 
           public static void Main()
           {
+           //initialization of objects for unique methods
            gameBoard g = new gameBoard();
+           playerInteractions p = new playerInteractions();
 
            //general board set up
+           int gState = 0;
            g.gameModeSelect();
            g.bGenerate();
            g.placeMines();
@@ -22,10 +25,34 @@ namespace Minesweeper
              g.howManyAdj(i,j);
             }
            }
+           
+           //Gameplay loop
+           gloop:
+           p.actionSelect(null,0,0,g);
+           
 
-           //g.attPrint();
+           //end of turn update
            g.sBoardUpdate();
            g.boardPrint();
+           gState = p.gameStateCheck();
+           
+           switch(gState)
+           {
+            case 1:
+            Console.WriteLine("\n You lose");
+            break;
+
+            case 2:
+            Console.WriteLine("\n You win");
+            break;
+            
+            default:
+            break;
+           }
+
+           goto gloop;
+
+           gOver: ;
           }
      }
 }
