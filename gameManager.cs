@@ -26,24 +26,26 @@ namespace Minesweeper
             }
            }
            
-           //Gameplay loop
+           //Gameplay loop/decision making
            gloop:
            p.actionSelect(null,0,0,g);
            
-
-           //end of turn update
+           //end of turn board updates
            g.sBoardUpdate();
            g.boardPrint();
            gState = p.gameStateCheck();
            
+           //checks game state to determine whether game should continue
            switch(gState)
            {
             case 1:
             Console.WriteLine("\n You lose");
+            goto gOver;
             break;
 
             case 2:
             Console.WriteLine("\n You win");
+            goto gOver;
             break;
             
             default:

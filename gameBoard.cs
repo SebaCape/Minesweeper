@@ -7,24 +7,27 @@ namespace Minesweeper
      { 
       
             //variable declaration
-            public Cell[,] board;
-            string [,] sBoard;
-            string gameMode;
-            int mineCount;
+            public Cell[,] board; //data in 2d array that is dealt with
+            string [,] sBoard; //data that is shown to user
+            string gameMode; //board size
+            int mineCount; //how many mines placed depending on board size
             public int x;
             public int y;
             
+            //random integers for later mine placement
             Random rx = new Random();
             int nx;
             Random ry = new Random();
             int ny;
             int currentMines = 0;
 
-            public void gameModeSelect()
+            public void gameModeSelect() //self explanatory
             {
              gameSelect:
-             Console.WriteLine("1 for small board, 2 for medium board, 3 for large board");
+             Console.ForegroundColor = ConsoleColor.Green;
+             Console.WriteLine("1 for small board, 2 for medium board, 3 for large board", Console.ForegroundColor);
              gameMode = Console.ReadLine();
+             Console.ForegroundColor = ConsoleColor.Gray;
 
              switch(gameMode)
              {
@@ -126,11 +129,11 @@ namespace Minesweeper
                for(int j = 0; j < y; j++)
                {
                 if(board[i,j].isActive == false)
-                sBoard[i,j] = "I";
-                else if(board[i,j].isFlagged == true)
-                sBoard[i,j] = "F";
+                sBoard[i,j] = ("I");
                 else if(board[i,j].isActive == true)
                 sBoard[i,j] = board[i,j].adjMines.ToString();
+                if(board[i,j].isFlagged == true)
+                sBoard[i,j] = "F";
                }
               }
             }
@@ -138,13 +141,24 @@ namespace Minesweeper
             //prints board of cells in way that shows whether they are active or not
             public void boardPrint()
             {
+             Console.WriteLine("\n");
              for(int i = 0; i < x; i++)
               {
                for(int j = 0; j < y; j++)
                 {
+                 if(board[i,j].isActive == true && board[i,j].isMine == true) //setting of color of different cells in game
+                 Console.ForegroundColor = ConsoleColor.DarkRed;
+                 else if(board[i,j].isActive == true)
+                 Console.ForegroundColor = ConsoleColor.Yellow;
+                 else if(board[i,j].isFlagged == true)
+                 Console.ForegroundColor = ConsoleColor.Magenta;
+                 else
+                 Console.ForegroundColor = ConsoleColor.Gray;
+
                  Console.Write(sBoard[i,j]);
                 } 
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Gray;
               }
             }
      }

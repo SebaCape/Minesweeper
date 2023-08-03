@@ -14,9 +14,10 @@ namespace Minesweeper
        {
        g.board[x,y].isActive = true;
        cellCheck(x,y,g);
+       adjActivate(x,y,g);
        }
        else
-       Console.WriteLine("cell already active or flagged");
+       Console.WriteLine("\ncell already active or flagged \n");
       }
 
      //checks whether specific cell is a mine or is flagged, if not, it will display the cells adjacent mines variable
@@ -30,29 +31,35 @@ namespace Minesweeper
       public void cellFlag(int x, int y, gameBoard g)
       {
        if(g.board[x,y].isFlagged != true && g.board[x,y].isActive != true)
+       {
        g.board[x,y].isFlagged = true;
+       Console.WriteLine("\nFlagged");
+       }
        else
+       {
        g.board[x,y].isFlagged = false;
+       Console.WriteLine("\nUnflagged");
+       }
       }
 
       //determines what will be done with that board cell
       public void actionSelect(string input, int x, int y, gameBoard g)
       {
-       Console.WriteLine("Choose the x coordinate (0-7)");
-       x = Convert.ToInt32(Console.ReadLine());
-       Console.WriteLine("Choose the y coordinate (0-7)");
-       y = Convert.ToInt32(Console.ReadLine());
+       Console.WriteLine("\nChoose the x coordinate (1-" + g.x + ")");
+       x = Convert.ToInt32(Console.ReadLine()) - 1;
+       Console.WriteLine("\nChoose the y coordinate (1-" + g.y + ")");
+       y = Convert.ToInt32(Console.ReadLine()) - 1;
 
-       Console.WriteLine("Choose which action you would like to perform. Flag: F, Activate: A");
+       Console.WriteLine("\nChoose which action you would like to perform. Flag: F, Activate: A");
        input = Console.ReadLine();
        switch (input)
        {
-       case "F":
-       cellFlag(x,y,g);
+       case "F": case "f":
+       cellFlag(y,x,g);
        break;
 
-       case "A":
-       cellActivate(x,y,g);
+       case "A": case "a":
+       cellActivate(y,x,g);
        break;
 
        default:
@@ -66,5 +73,25 @@ namespace Minesweeper
       {
         return gameOver;
       }
+      //activates adjacent 0s, recursion
+     public void adjActivate(int xx, int yy, gameBoard g)
+            {
+             if (!g.board[xx, yy].isMine)
+             {
+              for (int i = yy - 1; i <= yy + 1; i++)
+              {
+               for (int j = xx - 1; j <= xx + 1; j++)
+               {
+                if (i >= 0 && i < g.y && j >= 0 && j < g.x)
+                {
+                 if (g.board[xx,yy].adjMines == 0 && g.board[j,i].isActive == false)
+                 {
+                  cellActivate(j,i,g);
+                 }
+                }
+               }
+              }
+              }
+            }
      }
 }
