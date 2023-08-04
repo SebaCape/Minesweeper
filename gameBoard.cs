@@ -13,6 +13,7 @@ namespace Minesweeper
             int mineCount; //how many mines placed depending on board size
             public int x;
             public int y;
+            public int cellsLeft;
             
             //random integers for later mine placement
             Random rx = new Random();
@@ -37,6 +38,7 @@ namespace Minesweeper
                x = 8;
                y = 8;
                mineCount = 8;
+               cellsLeft = (x*y) - mineCount;
                break;
 
                case "2":
@@ -45,6 +47,7 @@ namespace Minesweeper
                x = 12;
                y = 12;
                mineCount = 18;
+               cellsLeft = (x*y) - mineCount;
                break;
 
                case "3":
@@ -53,6 +56,7 @@ namespace Minesweeper
                x = 20;
                y = 20;
                mineCount = 50;
+               cellsLeft = (x*y) - mineCount;
                break;
 
                default:

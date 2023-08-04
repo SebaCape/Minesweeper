@@ -13,8 +13,15 @@ namespace Minesweeper
        if(g.board[x,y].isActive != true && g.board[x,y].isFlagged != true)
        {
        g.board[x,y].isActive = true;
+
+       if(g.board[x,y].isMine == false)
+       g.cellsLeft--;
+
        cellCheck(x,y,g);
        adjActivate(x,y,g);
+
+       if(g.cellsLeft == 0)
+       gameOver = 2;
        }
        else
        Console.WriteLine("\ncell already active or flagged \n");
@@ -35,6 +42,7 @@ namespace Minesweeper
        g.board[x,y].isFlagged = true;
        Console.WriteLine("\nFlagged");
        }
+
        else
        {
        g.board[x,y].isFlagged = false;
