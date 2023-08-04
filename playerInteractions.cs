@@ -81,6 +81,7 @@ namespace Minesweeper
       {
         return gameOver;
       }
+          
       //activates adjacent 0s, recursion
      public void adjActivate(int xx, int yy, gameBoard g)
             {
